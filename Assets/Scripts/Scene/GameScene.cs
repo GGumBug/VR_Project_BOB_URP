@@ -15,6 +15,7 @@ public class GameScene : MonoBehaviour
         NoteManager.GetInstance().StartGame();
 
         UIManager.GetInstance().OpenUI("PlayerUI");
+        UIManager.GetInstance().OpenUI("JudgmentUI");
 
         ObjectPoolManager.GetInstance();
         NoteManager.GetInstance();

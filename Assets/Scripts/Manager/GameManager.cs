@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
         if (1000 < GetPerfectTiming(note) - curtime)
         {
             Debug.Log("BAD");
+            GetJudgmentUI().InitJudgeIMG("Judge_Bad");
             player.PlusHP(1);
             player.PlusScore(20);
             RefreshPlayerInfo();
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         else if (500 < GetPerfectTiming(note) - curtime)
         {
             Debug.Log("GOOD");
+            GetJudgmentUI().InitJudgeIMG("Judge_Good");
             player.PlusHP(5);
             player.PlusScore(50);
             RefreshPlayerInfo();
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("PERFACT");
+            GetJudgmentUI().InitJudgeIMG("Judge_Perfect");
             player.PlusHP(10);
             player.PlusScore(100);
             RefreshPlayerInfo();
@@ -67,6 +70,7 @@ public class GameManager : MonoBehaviour
         if (note.longNoteCount == note.maxLongNoteCount)
         {
             Debug.Log("MISS");
+            GetJudgmentUI().InitJudgeIMG("Judge_Miss");
             player.MinusHP(10);
             RefreshPlayerInfo();
             player.CountCheck(3);
@@ -74,6 +78,7 @@ public class GameManager : MonoBehaviour
         else if (note.longNoteCount > note.maxLongNoteCount * 0.7)
         {
             Debug.Log("BAD");
+            GetJudgmentUI().InitJudgeIMG("Judge_Bad");
             player.PlusHP(1);
             player.PlusScore(20);
             RefreshPlayerInfo();
@@ -82,6 +87,7 @@ public class GameManager : MonoBehaviour
         else if (note.longNoteCount > note.maxLongNoteCount * 0.2)
         {
             Debug.Log("GOOD");
+            GetJudgmentUI().InitJudgeIMG("Judge_Good");
             player.PlusHP(5);
             player.PlusScore(50);
             RefreshPlayerInfo();
@@ -90,6 +96,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("PERFACT");
+            GetJudgmentUI().InitJudgeIMG("Judge_Perfect");
             player.PlusHP(10);
             player.PlusScore(100);
             RefreshPlayerInfo();
@@ -100,6 +107,7 @@ public class GameManager : MonoBehaviour
     public void CheckLongPerfactJugement()
     {
         Debug.Log("PERFACT");
+        GetJudgmentUI().InitJudgeIMG("Judge_Perfect");
         player.PlusHP(10);
         player.PlusScore(100);
         RefreshPlayerInfo();
@@ -109,6 +117,7 @@ public class GameManager : MonoBehaviour
     public void Miss()
     {
         Debug.Log("MISS");
+        GetJudgmentUI().InitJudgeIMG("Judge_Miss");
         player.MinusHP(10);
         RefreshPlayerInfo();
         player.CountCheck(3);
@@ -130,6 +139,13 @@ public class GameManager : MonoBehaviour
     public void GameOver(int next)
     {
         StartCoroutine(IEGameOver(next));
+    }
+
+    JudgmentUI GetJudgmentUI()
+    {
+        GameObject go = UIManager.GetInstance().GetUI("JudgmentUI");
+        JudgmentUI judgmentUI = go.GetComponent<JudgmentUI>();
+        return judgmentUI;
     }
 
     IEnumerator IEGameOver(int next)
