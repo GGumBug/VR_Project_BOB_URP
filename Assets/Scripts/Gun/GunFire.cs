@@ -27,6 +27,7 @@ public class GunFire : MonoBehaviour
     //피격, 에임
     [SerializeField] GameObject targetPS;
     [SerializeField] GameObject aimGO;
+    GameObject aim;
 
 
     [Space(10f)]
@@ -63,6 +64,8 @@ public class GunFire : MonoBehaviour
         {
             gunAudioSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
         }
+
+        CreateAim();
     }
 
     void Start()
@@ -77,6 +80,8 @@ public class GunFire : MonoBehaviour
 
     private void Update()
     {
+        RaycastAim();
+
         switch (controller)
         {
             case Controller.Left:
@@ -199,7 +204,7 @@ public class GunFire : MonoBehaviour
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
-            aimGO.transform.position = hit.point;
+            aim.transform.position = hit.point;
         }
 
     }
@@ -460,6 +465,11 @@ public class GunFire : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void CreateAim()
+    {
+        aim = Instantiate(aimGO);
     }
 
     IEnumerator M_GunDleayLeft()
