@@ -82,7 +82,7 @@ public class MenuUI : MonoBehaviour
         StartBtn.onClick.AddListener(GameStartOn);
         OptionBtn.onClick.AddListener(OptionOn);
         MainExitBtn.onClick.AddListener(Exit);
-        OptionExitBtn.onClick.AddListener(RemoveRank);
+        /*OptionExitBtn.onClick.AddListener();*/
         SoundBtn.onClick.AddListener(SoundOn);
         SoundBackBtn.onClick.AddListener(SoundBack);
         MainBackBtn.onClick.AddListener(MainBack);
