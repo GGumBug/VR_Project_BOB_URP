@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class JudgmentUI : MonoBehaviour
 {
-    [SerializeField]Image judgeImg;
+    public Image judgeImg;
     float height;
 
     Coroutine judgmentCo;

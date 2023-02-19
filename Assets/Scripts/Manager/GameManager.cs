@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
             float noteDleay = SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].time + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset;
             yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f);
             UIManager.GetInstance().OpenUI("ResultUI");
+            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
         }
         else
         {
@@ -162,6 +163,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(duration + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset);
             yield return new WaitForSeconds((duration + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset)*0.001f);
             UIManager.GetInstance().OpenUI("ResultUI");
+            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
         }
     }
 }
