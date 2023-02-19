@@ -73,9 +73,6 @@ public class GunFire : MonoBehaviour
         gunFirePS.Stop();
         mGunFirePS.Stop();
         gunSwapPS.Stop();
-
-        Instantiate(aimGO, new Vector3 (0,0,-5), Quaternion.identity);
-
     }
 
     private void Update()
@@ -436,16 +433,19 @@ public class GunFire : MonoBehaviour
             case Controller.Left:
                 if (isM_LeftShot)
                 {
-                    m_GunLeft.SetActive(true);
-                   // gunSwapPS.Play(); //스왚 효과
+                    if (m_GunLeft.gameObject.activeSelf==false)
+                    { gunSwapPS.Play(); }    
                     
+                    m_GunLeft.SetActive(true);
                     pistolLeft.SetActive(false);
-                   // gunSwapPS.Play(); //스왚 효과
+                    
                 }
                 else if (isLeftShot)
                 {
-                    m_GunLeft.SetActive(false);
-                   // gunSwapPS.Play(); //스왚 효과
+                    if (pistolLeft.gameObject.activeSelf == false)
+                    { gunSwapPS.Play(); }
+
+                    m_GunLeft.SetActive(false);                   
                     pistolLeft.SetActive(true);
                 }
                 break;
@@ -453,11 +453,17 @@ public class GunFire : MonoBehaviour
             case Controller.Right:
                 if (isM_RightShot)
                 {
+                    if (m_GunRight.gameObject.activeSelf == false)
+                    { gunSwapPS.Play(); }
+
                     m_GunRight.SetActive(true);
                     pistolRight.SetActive(false);
                 }
                 else if (isRightShot)
                 {
+                    if (pistolRight.gameObject.activeSelf == false)
+                    { gunSwapPS.Play(); }
+
                     m_GunRight.SetActive(false);
                     pistolRight.SetActive(true);
                 }
