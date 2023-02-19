@@ -1418,7 +1418,7 @@ MonoBehaviour:
   gunSwapPS: {fileID: 2216145782852413169}
   targetPS: {fileID: 6110060946270182075, guid: c9d65c12c12fd2b4294deb9ccf5bd996,
     type: 3}
-  aimGO: {fileID: 5743363288122589220, guid: 090dc709432e26d49ad094d884f398b0, type: 3}
+  aimGO: {fileID: 5360144301521369838, guid: 090dc709432e26d49ad094d884f398b0, type: 3}
   gunAudioClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
   mGunAudioClip: {fileID: 8300000, guid: 159aa6b3153429349b06479ba4bcb8fc, type: 3}
   pistolLeft: {fileID: 1600018419399134167}
@@ -1616,7 +1616,7 @@ MonoBehaviour:
   gunSwapPS: {fileID: 6970372714414875679}
   targetPS: {fileID: 6110060946270182075, guid: c9d65c12c12fd2b4294deb9ccf5bd996,
     type: 3}
-  aimGO: {fileID: 5743363288122589220, guid: 70bfe395af2ce4345a7834d1a9554ec1, type: 3}
+  aimGO: {fileID: 5332414978534915904, guid: 70bfe395af2ce4345a7834d1a9554ec1, type: 3}
   gunAudioClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
   mGunAudioClip: {fileID: 8300000, guid: 159aa6b3153429349b06479ba4bcb8fc, type: 3}
   pistolLeft: {fileID: 1600018419399134167}
