@@ -1853,7 +1853,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2818833225304221721}
-  - component: {fileID: 2818833225304221722}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -1877,36 +1876,6 @@ Transform:
   m_Father: {fileID: 7510452319170451125}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2818833225304221722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6144901631803114943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7424ee14877e42145952f4e216eebcae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  head:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 7313488279732102248}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-  lefyHand:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-  rightHand:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-  turnSmoothness: 0
-  ikHead: {fileID: 7313488279732102248}
-  headBodyOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &6554737977452152243
 GameObject:
   m_ObjectHideFlags: 0
