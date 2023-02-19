@@ -25,7 +25,7 @@ public class JudgmentUI : MonoBehaviour
         judgeImg.sprite = Resources.Load<Sprite>($"Image/{judge}");
         while (judgeImg.rectTransform.sizeDelta.y < 1)
         {
-            height += 0.03f;
+            height += 0.12f;
             judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
             yield return null;
         }
