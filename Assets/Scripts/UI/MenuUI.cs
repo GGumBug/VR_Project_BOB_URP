@@ -57,7 +57,7 @@ public class MenuUI : MonoBehaviour
 
 
     public List<Sheet> sheetList = new List<Sheet>();
-
+    Coroutine coroutineBgm;
     Vector3 dest;
     Vector3 rot;
 
@@ -71,7 +71,11 @@ public class MenuUI : MonoBehaviour
         OnclickSetting();
         RankingPanel.SetActive(false);
         Debug.Log($"Player : {GameManager.GetInstance().player.playerName}");
-
+        
+    }
+    void Update()
+    {
+        SetVolume();
     }
     // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
     void OnclickSetting()
@@ -133,9 +137,12 @@ public class MenuUI : MonoBehaviour
 
     // 사운드패널 볼륨 조절 함수
     void SetVolume()
-    {
-        /*audioManager.BgmPlayer.volume = Bgm.value;
-        audioManager.SfxPlayer.volume = SFX.value;*/
+    {   
+        AudioManager.GetInstance().BgmPlayer.volume = Bgm.value;
+        AudioManager.GetInstance().SfxPlayer.volume = Sfx.value;
+        AudioManager.GetInstance().FindGunAudio();
+        AudioManager.GetInstance().leftAudio.volume = Sfx.value;
+        AudioManager.GetInstance().rightAudio.volume = Sfx.value;
     }
     // 종료버튼
     void Exit()
@@ -242,6 +249,23 @@ public class MenuUI : MonoBehaviour
         ImgDisk.sprite = SheetManager.GetInstance().sheets[title].img;
         txtNoteCount.text = "Note :" + SheetManager.GetInstance().sheets[title].notes.Count.ToString();
         /*txtBestScore.text = sheetList[curMusic].*/
+        ChangeMusic(title);
+    }
+    public void ChangeMusic(string title)
+    {
+        if (coroutineBgm != null)
+        {
+            StopCoroutine(coroutineBgm);
+        }
+        coroutineBgm = StartCoroutine(IEChangeMusic(title));
+    }
+
+    IEnumerator IEChangeMusic(string title)
+    {
+        AudioManager.GetInstance().BgmPlayer.Stop();
+        //sfx 사운드 재생
+        yield return new WaitForSeconds(1f);
+        AudioManager.GetInstance().PlayBgm(title);
     }
 
     void NextSheet()

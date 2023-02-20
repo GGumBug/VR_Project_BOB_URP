@@ -12,6 +12,23 @@ public enum State
     Unpaused,
     Stop,
 }
+public class Sound
+{
+    public string name;
+    public AudioClip clip;
+
+    public float volume;
+    public bool loop = true;
+
+
+    public Sound(string _name, AudioClip _clip, bool _loop)
+    {
+        name = _name;
+        clip = _clip;
+        volume = 0.3f;
+        loop = _loop;
+    }
+}
 
 public class AudioManager : MonoBehaviour
 {
@@ -34,17 +51,61 @@ public class AudioManager : MonoBehaviour
     public State state = State.Stop;
 
     public AudioSource BgmPlayer;
+    public AudioSource SfxPlayer;
+    public AudioSource leftAudio;
+    public AudioSource rightAudio;
+    public Dictionary<string, Sound> bgms = new Dictionary<string, Sound>();
+    public Dictionary<string, Sound> sfxs = new Dictionary<string, Sound>();
 
-    public void InitClip(string title)
+    private void Awake()
     {
-        BgmPlayer = gameObject.AddComponent<AudioSource>();
-        BgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
+        var ob1 = new GameObject();
+        ob1.name = "@BgmPlayer";
+        var ob2 = new GameObject();
+        ob2.name = "@SfxPlayer";
+        ob1.transform.SetParent(gameObject.transform);
+        ob2.transform.SetParent(gameObject.transform);
+        ob1.AddComponent<AudioSource>();
+        ob2.AddComponent<AudioSource>();
+        BgmPlayer = ob1.GetComponent<AudioSource>();
+        SfxPlayer = ob2.GetComponent<AudioSource>();
+        InitClip();
     }
-    public void Play()
+    public void InitClip()
     {
+        AudioClip[] bgm = Resources.LoadAll<AudioClip>($"Sound/Bgm");
+        AudioClip[] sfx = Resources.LoadAll<AudioClip>($"Sound/SFX");
+
+        for (int i = 0; i < bgm.Length; i++)
+        {
+            bgms.Add(bgm[i].name, new Sound(bgm[i].name, bgm[i], false));
+        }
+
+        for (int j = 0; j < sfx.Length; j++)
+        {
+            sfxs.Add(sfx[j].name, new Sound(sfx[j].name, sfx[j], false));
+        }
+
+    }
+    /*   public void InitClip(string title)
+       {
+           BgmPlayer = gameObject.AddComponent<AudioSource>();
+           BgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
+       }*/
+    public void PlayBgm(string title)
+    {
+        BgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
         state = State.Playing;
         BgmPlayer.volume = 1;
         BgmPlayer.Play();
+    }
+    public void PlaySfx(string name)
+    {
+        var sfx = sfxs[name];
+        SfxPlayer.clip = sfx.clip;
+        SfxPlayer.volume = 1;
+        SfxPlayer.loop = sfx.loop;
+        SfxPlayer.Play();
     }
 
     public float progressTime
@@ -75,7 +136,7 @@ public class AudioManager : MonoBehaviour
 
     IEnumerator IEFadeOutBGM()
     {
-        while(BgmPlayer.volume >0)
+        while (BgmPlayer.volume > 0)
         {
             BgmPlayer.volume -= 0.003f;
             yield return null;
@@ -87,4 +148,11 @@ public class AudioManager : MonoBehaviour
         }
 
     }
+
+    public void FindGunAudio()
+    {
+        leftAudio = GameObject.FindGameObjectWithTag("LeftGun").GetComponent<GunFire>().FindGunAudioSource();
+        rightAudio = GameObject.FindGameObjectWithTag("RightGun").GetComponent<GunFire>().FindGunAudioSource();
+    }
+
 }
