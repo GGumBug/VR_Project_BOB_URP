@@ -13,7 +13,7 @@ public class ResultUI : MonoBehaviour
     [SerializeField] TMP_Text BadCount;
     [SerializeField] TMP_Text MissCount;
     [SerializeField] TMP_Text Score;
-    [SerializeField] TMP_Text Rank;
+    /*[SerializeField] TMP_Text Rank;*/
     [SerializeField] Image RankImg;
     [SerializeField] Button OKBtn;
     [SerializeField] GameObject resultUI;
@@ -30,10 +30,10 @@ public class ResultUI : MonoBehaviour
         Score.text = GameManager.GetInstance().player.score.ToString();
 
         PlayerPrefs.SetInt("CurrentScore" , GameManager.GetInstance().player.score);
-        PlayerPrefs.SetInt("CurrentMaxCombo" , GameManager.GetInstance().player.combo);
+        PlayerPrefs.SetInt("CurrentMaxCombo" , GameManager.GetInstance().player.maxcombo);
         PlayerPrefs.SetString("CurrentPlayerName", GameManager.GetInstance().player.playerName);
         Debug.Log(GameManager.GetInstance().player.score);
-        Debug.Log(GameManager.GetInstance().player.combo);
+        Debug.Log(GameManager.GetInstance().player.maxcombo);
         Debug.Log(GameManager.GetInstance().player.playerName);
 
 
@@ -47,7 +47,7 @@ public class ResultUI : MonoBehaviour
     {
         RankSystem.GetInstance().SaveRankSystem();
         Debug.Log(GameManager.GetInstance().player.score);
-        Debug.Log(GameManager.GetInstance().player.combo);
+        Debug.Log(GameManager.GetInstance().player.maxcombo);
         Debug.Log(GameManager.GetInstance().player.playerName);
         resultUI.gameObject.SetActive(false);
         GameManager.GetInstance().player.ResetPlayer();

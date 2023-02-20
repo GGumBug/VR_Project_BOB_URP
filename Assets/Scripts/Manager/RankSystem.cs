@@ -9,7 +9,7 @@ public struct RankData
     public string PlayerName;
     public int score;
     public int maxCombo;
-
+    public int rank;
 }
 
 public class RankSystem : MonoBehaviour
@@ -129,7 +129,6 @@ public class RankSystem : MonoBehaviour
         currentData.PlayerName = PlayerPrefs.GetString("CurrentPlayerName");
         currentData.score = PlayerPrefs.GetInt("CurrentScore");
         currentData.maxCombo = PlayerPrefs.GetInt("CurrentMaxCombo");
-
 
         //1 ~ 10 등의 점수와 현재 스테이지에서 달성한 점수 비교
         for (int i = 0; i < maxRankCount; ++i)

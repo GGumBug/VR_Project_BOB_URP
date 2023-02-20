@@ -43,7 +43,7 @@ public class GunFire : MonoBehaviour
     [SerializeField] GameObject m_GunRight;
 
     float pistolshotDleay = 0.5f;
-    float m_GunDleay = 0.15f;
+    float m_GunDleay = 0.1f;
     float m_GunDamege = 0.2f;
     bool isLeftShot;
     bool isRightShot;
