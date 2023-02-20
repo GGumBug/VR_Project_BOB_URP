@@ -6,11 +6,13 @@ public class GameScene : MonoBehaviour
 {
     private void Awake()
     {
+        int curMusic = SheetManager.GetInstance().curMusic;
+        string title = SheetManager.GetInstance().title[curMusic];
         SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].Init();
 
-        AudioManager.GetInstance().InitClip(SheetManager.GetInstance().GetCurrentTitle());
+        /*AudioManager.GetInstance().InitClip(SheetManager.GetInstance().GetCurrentTitle());*/
         AudioManager.GetInstance().progressTime = 0f;
-        AudioManager.GetInstance().Play();
+        AudioManager.GetInstance().PlayBgm(title);
 
         NoteManager.GetInstance().StartGame();
 
