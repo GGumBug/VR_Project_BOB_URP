@@ -34,6 +34,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button MainBackBtn;
     [SerializeField] Slider Bgm;
     [SerializeField] Slider Sfx;
+    [SerializeField] Slider Gbm;
     [SerializeField] GameObject Cube2;
 
     // 음악선택관련 버튼
@@ -143,6 +144,7 @@ public class MenuUI : MonoBehaviour
         AudioManager.GetInstance().FindGunAudio();
         AudioManager.GetInstance().leftAudio.volume = Sfx.value;
         AudioManager.GetInstance().rightAudio.volume = Sfx.value;
+        AudioManager.GetInstance().MenuBgmPlayer.volume = Gbm.value;
     }
     // 종료버튼
     void Exit()
