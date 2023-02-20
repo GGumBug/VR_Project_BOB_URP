@@ -15,5 +15,6 @@ public class TitleScene : MonoBehaviour
         UIManager.GetInstance().OpenUI("TitleUI");
         UIManager.GetInstance().OpenUI("FadeUI");
         TitleUI titleUI = UIManager.GetInstance().GetUI("TitleUI").GetComponent<TitleUI>();
+        AudioManager.GetInstance().PlayBgm("Tocatta");
     }
 }

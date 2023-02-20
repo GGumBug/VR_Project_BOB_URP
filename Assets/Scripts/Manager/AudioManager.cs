@@ -56,6 +56,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource rightAudio;
     public Dictionary<string, Sound> bgms = new Dictionary<string, Sound>();
     public Dictionary<string, Sound> sfxs = new Dictionary<string, Sound>();
+    public float curBgmTime;
 
     private void Awake()
     {
@@ -74,7 +75,7 @@ public class AudioManager : MonoBehaviour
     public void InitClip()
     {
         AudioClip[] bgm = Resources.LoadAll<AudioClip>($"Sound/Bgm");
-        AudioClip[] sfx = Resources.LoadAll<AudioClip>($"Sound/SFX");
+        AudioClip[] sfx = Resources.LoadAll<AudioClip>($"Sound/Sfx");
 
         for (int i = 0; i < bgm.Length; i++)
         {
@@ -92,9 +93,17 @@ public class AudioManager : MonoBehaviour
            BgmPlayer = gameObject.AddComponent<AudioSource>();
            BgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
        }*/
-    public void PlayBgm(string title)
+    public void PlayGameBgm(string title)
     {
         BgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
+        state = State.Playing;
+        BgmPlayer.volume = 1;
+        BgmPlayer.Play();
+    }
+    public void PlayBgm(string name)
+    {
+        var bgm = bgms[name];
+        BgmPlayer.clip = bgm.clip;
         state = State.Playing;
         BgmPlayer.volume = 1;
         BgmPlayer.Play();
@@ -153,6 +162,17 @@ public class AudioManager : MonoBehaviour
     {
         leftAudio = GameObject.FindGameObjectWithTag("LeftGun").GetComponent<GunFire>().FindGunAudioSource();
         rightAudio = GameObject.FindGameObjectWithTag("RightGun").GetComponent<GunFire>().FindGunAudioSource();
+    }
+
+    public void GetBGMTime()
+    {
+        curBgmTime = BgmPlayer.time;
+    }
+
+    public void ReturnBGM()
+    {
+        PlayBgm("Hole In The Sun");
+        BgmPlayer.time = curBgmTime;
     }
 
 }

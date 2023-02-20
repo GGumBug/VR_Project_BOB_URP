@@ -12,7 +12,7 @@ public class GameScene : MonoBehaviour
 
         /*AudioManager.GetInstance().InitClip(SheetManager.GetInstance().GetCurrentTitle());*/
         AudioManager.GetInstance().progressTime = 0f;
-        AudioManager.GetInstance().PlayBgm(title);
+        AudioManager.GetInstance().PlayGameBgm(title);
 
         NoteManager.GetInstance().StartGame();
 

@@ -178,6 +178,8 @@ public class MenuUI : MonoBehaviour
         SelectObj.gameObject.SetActive(true);
         OptionObj.gameObject.SetActive(false);
         RankingPanel.gameObject.SetActive(false);
+        AudioManager.GetInstance().GetBGMTime();
+        ChangeMusic(SheetManager.GetInstance().GetCurrentTitle());
 
     }
     void SelecttoMain()
@@ -190,6 +192,8 @@ public class MenuUI : MonoBehaviour
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
         RankingPanel.gameObject.SetActive(false);
+        AudioManager.GetInstance().ReturnBGM();
+
     }
     /// <summary>
     /// 게임시작 함수
@@ -204,6 +208,7 @@ public class MenuUI : MonoBehaviour
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
         RankingPanel.gameObject.SetActive(false);
+        AudioManager.GetInstance().BgmPlayer.Stop();
 
         Invoke("GameStart", 2);
         StartCoroutine(StartMove());
@@ -249,7 +254,7 @@ public class MenuUI : MonoBehaviour
         ImgDisk.sprite = SheetManager.GetInstance().sheets[title].img;
         txtNoteCount.text = "Note :" + SheetManager.GetInstance().sheets[title].notes.Count.ToString();
         /*txtBestScore.text = sheetList[curMusic].*/
-        ChangeMusic(title);
+        
     }
     public void ChangeMusic(string title)
     {
@@ -265,7 +270,7 @@ public class MenuUI : MonoBehaviour
         AudioManager.GetInstance().BgmPlayer.Stop();
         //sfx 사운드 재생
         yield return new WaitForSeconds(1f);
-        AudioManager.GetInstance().PlayBgm(title);
+        AudioManager.GetInstance().PlayGameBgm(title);
     }
 
     void NextSheet()
@@ -275,7 +280,7 @@ public class MenuUI : MonoBehaviour
             SheetManager.GetInstance().curMusic = 0;
         SetSheetList(SheetManager.GetInstance().curMusic);
         RankSystem.GetInstance().ChangeRankTab();
-
+        ChangeMusic(SheetManager.GetInstance().GetCurrentTitle());
     }
 
     void PriorSheet()
@@ -284,6 +289,7 @@ public class MenuUI : MonoBehaviour
             SheetManager.GetInstance().curMusic = SheetManager.GetInstance().sheets.Count - 1;
         SetSheetList(SheetManager.GetInstance().curMusic);
         RankSystem.GetInstance().ChangeRankTab();
+        ChangeMusic(SheetManager.GetInstance().GetCurrentTitle());
     }
 
     /////////////////////랭크시스템////////////////////////////////////////
