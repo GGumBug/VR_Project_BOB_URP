@@ -1232,7 +1232,7 @@ GameObject:
   - component: {fileID: 1600018419318116319}
   m_Layer: 0
   m_Name: GUNR
-  m_TagString: Untagged
+  m_TagString: RightGun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1429,7 +1429,7 @@ GameObject:
   - component: {fileID: 1600018419397512190}
   m_Layer: 0
   m_Name: GUNL
-  m_TagString: Untagged
+  m_TagString: LeftGun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

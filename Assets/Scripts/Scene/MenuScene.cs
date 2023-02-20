@@ -6,6 +6,8 @@ public class MenuScene : MonoBehaviour
 {
     private void Awake()
     {
+        AudioManager.GetInstance().PlayBgm("Bones");
         RankSystem.GetInstance().StartRankSystem();
+
     }
 }

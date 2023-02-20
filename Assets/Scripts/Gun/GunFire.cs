@@ -531,4 +531,14 @@ public class GunFire : MonoBehaviour
         isRightShot = false;
     }
 
+    public AudioSource FindGunAudioSource()
+    {
+        if (gunAudioSource == null)
+        {
+            Debug.Log("사운드소스 비어있음");
+            return null;
+        }
+        return gunAudioSource;
+    }
+
 }
