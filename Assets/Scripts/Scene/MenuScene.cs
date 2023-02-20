@@ -6,7 +6,7 @@ public class MenuScene : MonoBehaviour
 {
     private void Awake()
     {
-        AudioManager.GetInstance().PlayBgm("Bones");
+        AudioManager.GetInstance().PlayBgm("Hole In The Sun");
         RankSystem.GetInstance().StartRankSystem();
 
     }
