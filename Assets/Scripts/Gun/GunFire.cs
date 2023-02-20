@@ -137,7 +137,7 @@ public class GunFire : MonoBehaviour
                 }
                 break;
             case Controller.Right:
-                if (InputManager.GetInstance()._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightTriggerValue) && rightTriggerValue)
+                if (InputManager.GetInstance()._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightTriggerValue) && rightTriggerValue)
                 {
                     if (isPressedR == false)
                     {
