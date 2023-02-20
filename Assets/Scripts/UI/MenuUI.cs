@@ -267,6 +267,7 @@ public class MenuUI : MonoBehaviour
 
     IEnumerator IEChangeMusic(string title)
     {
+        AudioManager.GetInstance().MenuBgmPlayer.Stop();
         AudioManager.GetInstance().BgmPlayer.Stop();
         //sfx 사운드 재생
         yield return new WaitForSeconds(1f);

@@ -52,6 +52,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource BgmPlayer;
     public AudioSource SfxPlayer;
+    public AudioSource MenuBgmPlayer;
     public AudioSource leftAudio;
     public AudioSource rightAudio;
     public Dictionary<string, Sound> bgms = new Dictionary<string, Sound>();
@@ -64,12 +65,18 @@ public class AudioManager : MonoBehaviour
         ob1.name = "@BgmPlayer";
         var ob2 = new GameObject();
         ob2.name = "@SfxPlayer";
+        var ob3 = new GameObject();
+        ob2.name = "@MenuPlayer";
         ob1.transform.SetParent(gameObject.transform);
         ob2.transform.SetParent(gameObject.transform);
+        ob3.transform.SetParent(gameObject.transform);
         ob1.AddComponent<AudioSource>();
         ob2.AddComponent<AudioSource>();
+        ob3.AddComponent<AudioSource>();
         BgmPlayer = ob1.GetComponent<AudioSource>();
         SfxPlayer = ob2.GetComponent<AudioSource>();
+        MenuBgmPlayer = ob2.GetComponent<AudioSource>();
+        MenuBgmPlayer.volume = 0.3f;
         InitClip();
     }
     public void InitClip()
@@ -103,10 +110,10 @@ public class AudioManager : MonoBehaviour
     public void PlayBgm(string name)
     {
         var bgm = bgms[name];
-        BgmPlayer.clip = bgm.clip;
+        MenuBgmPlayer.clip = bgm.clip;
         state = State.Playing;
-        BgmPlayer.volume = 1;
-        BgmPlayer.Play();
+        MenuBgmPlayer.volume = 1;
+        MenuBgmPlayer.Play();
     }
     public void PlaySfx(string name)
     {
@@ -166,13 +173,14 @@ public class AudioManager : MonoBehaviour
 
     public void GetBGMTime()
     {
-        curBgmTime = BgmPlayer.time;
+        curBgmTime = MenuBgmPlayer.time;
     }
 
     public void ReturnBGM()
     {
+        BgmPlayer.Stop();
         PlayBgm("Hole In The Sun");
-        BgmPlayer.time = curBgmTime;
+        MenuBgmPlayer.time = curBgmTime;
     }
 
 }
