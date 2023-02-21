@@ -16,37 +16,30 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button MainExitBtn;
 
     [Header("MusicSelect")]
-
-    // 곡 리스트 관련 버튼
-    [SerializeField] Button ListUpBtn;
-    [SerializeField] Button ListDownBtn;
-
-    // 게임시작버튼
-    [SerializeField] Button StartBtn;
-    [SerializeField] Button BackBtn;
-
-    [Header("Option")]
-    [SerializeField] GameObject SoundPanel;
-    [SerializeField] GameObject OptionPanel;
-    [SerializeField] Button OptionExitBtn;
-    [SerializeField] Button SoundBtn;
-    [SerializeField] Button SoundBackBtn;
-    [SerializeField] Button MainBackBtn;
-    [SerializeField] Slider Bgm;
-    [SerializeField] Slider Sfx;
-    [SerializeField] GameObject Cube2;
-
-    // 음악선택관련 버튼
     [SerializeField] TMP_Text txtSongName;
     [SerializeField] TMP_Text txtSongArtist;
     [SerializeField] TMP_Text txtBPM;
     [SerializeField] Image ImgDisk;
     [SerializeField] TMP_Text txtNoteCount;
     [SerializeField] Button RankingBtn;
+    // 곡 리스트 관련 버튼
+    [SerializeField] Button ListUpBtn;
+    [SerializeField] Button ListDownBtn;
 
-    [SerializeField] GameObject MenuObj;
-    [SerializeField] GameObject SelectObj;
-    [SerializeField] GameObject OptionObj;
+    [Header("GameStart")]
+    [SerializeField] Button StartBtn;
+    [SerializeField] Button BackBtn;
+
+    [Header("Option")]
+    [SerializeField] GameObject SoundPanel;
+    [SerializeField] GameObject OptionPanel;
+    [SerializeField] Button EndingBtn;
+    [SerializeField] Button SoundBtn;
+    [SerializeField] Button SoundBackBtn;
+    [SerializeField] Button MainBackBtn;
+    [SerializeField] Slider Bgm;
+    [SerializeField] Slider Sfx;
+    [SerializeField] Slider Gbm;
 
     [Header("Ranking")]
     [SerializeField] GameObject RankingPanel;
@@ -56,10 +49,26 @@ public class MenuUI : MonoBehaviour
     [SerializeField] TMP_Text txtRankSongName;
 
 
-    public List<Sheet> sheetList = new List<Sheet>();
+    [Header("GameObject")]
+    [SerializeField] GameObject MenuObj;
+    [SerializeField] GameObject SelectObj;
+    [SerializeField] GameObject OptionObj;
+    [SerializeField] GameObject EndingObj;
 
+    [SerializeField] Button EndingExitBtn;
+
+    [Header("FadeImg")]
+    [SerializeField] Image MainMenuImg;
+    [SerializeField] Image OptionImg;
+    [SerializeField] Image SelectImg;
+    [SerializeField] Image RankImg;
+
+    public List<Sheet> sheetList = new List<Sheet>();
+    Coroutine coroutineBgm;
     Vector3 dest;
     Vector3 rot;
+    bool isSoundPanel;
+
 
     // Start is called before the first frame update
     void Start()
@@ -69,9 +78,17 @@ public class MenuUI : MonoBehaviour
         xrOrigin.transform.position = new Vector3(-22.7f, 8.1f, 49.7f);
         xrOrigin.transform.localEulerAngles = new Vector3(0, 46.535f, 0);
         OnclickSetting();
-        RankingPanel.SetActive(false);
         Debug.Log($"Player : {GameManager.GetInstance().player.playerName}");
-
+        AudioManager.GetInstance().PlaySfx("NeonArrow");
+        AudioManager.GetInstance().SfxPlayer.loop = true;
+        AudioManager.GetInstance().SfxPlayer.volume = 0.3f;
+    }
+    void Update()
+    {
+        if (isSoundPanel)
+        {
+            SetVolume();
+        }
     }
     // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
     void OnclickSetting()
@@ -82,7 +99,6 @@ public class MenuUI : MonoBehaviour
         StartBtn.onClick.AddListener(GameStartOn);
         OptionBtn.onClick.AddListener(OptionOn);
         MainExitBtn.onClick.AddListener(Exit);
-        /*OptionExitBtn.onClick.AddListener();*/
         SoundBtn.onClick.AddListener(SoundOn);
         SoundBackBtn.onClick.AddListener(SoundBack);
         MainBackBtn.onClick.AddListener(MainBack);
@@ -92,18 +108,31 @@ public class MenuUI : MonoBehaviour
         RankBackBtn.onClick.AddListener(ExitRank);
         RankUpBtn.onClick.AddListener(NextSheet);
         RankDownBtn.onClick.AddListener(PriorSheet);
+        EndingBtn.onClick.AddListener(Ending);
+        EndingExitBtn.onClick.AddListener(EndingExit);
+    }
+    // 페이드효과 관련 함수
+    IEnumerator FadeOut(Image img) // 페이드 들어가는 코루틴
+    {
+        img.DOFade(0, 2.3f);
+        yield return new WaitForSeconds(2);
+        img.gameObject.SetActive(false);
+    }
+    void FadeIn(Image img) // 페이드 
+    {
+        img.gameObject.SetActive(true);
+        img.DOFade(1, 0.5f);
     }
     // 옵션과 메인메뉴 연결 버튼////
     void OptionOn()
     {
+        
         dest = new Vector3(1.8f, 30, 23.7f);
         rot = new Vector3(0, 86.986f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-        MenuObj.gameObject.SetActive(false);
-        SelectObj.gameObject.SetActive(false);
-        OptionObj.gameObject.SetActive(true);
-
+        StartCoroutine(FadeOut(OptionImg));
+        FadeIn(MainMenuImg);
     }
     void MainBack()
     {
@@ -111,9 +140,8 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-        MenuObj.gameObject.SetActive(true);
-        SelectObj.gameObject.SetActive(false);
-        OptionObj.gameObject.SetActive(false);
+        FadeIn(OptionImg);
+        StartCoroutine(FadeOut(MainMenuImg));
     }
 
     /// <summary>
@@ -123,19 +151,31 @@ public class MenuUI : MonoBehaviour
     {
         SoundPanel.gameObject.SetActive(true);
         OptionPanel.gameObject.SetActive(false);
+        Gbm.value = AudioManager.GetInstance().curGameVolum;
+        Bgm.value = AudioManager.GetInstance().curBGMVolum;
+        Sfx.value = AudioManager.GetInstance().curSFXVolum;
+        isSoundPanel = true;
     }
 
     void SoundBack()
     {
         SoundPanel.gameObject.SetActive(false);
         OptionPanel.gameObject.SetActive(true);
+        AudioManager.GetInstance().curGameVolum = Gbm.value;
+        AudioManager.GetInstance().curBGMVolum = Bgm.value;
+        AudioManager.GetInstance().curSFXVolum = Sfx.value;
+        isSoundPanel = false;
     }
 
     // 사운드패널 볼륨 조절 함수
     void SetVolume()
     {
-        /*audioManager.BgmPlayer.volume = Bgm.value;
-        audioManager.SfxPlayer.volume = SFX.value;*/
+        AudioManager.GetInstance().GameBgmPlayer.volume = Gbm.value;
+        AudioManager.GetInstance().SfxPlayer.volume = Sfx.value;
+        AudioManager.GetInstance().FindGunAudio();
+        AudioManager.GetInstance().leftAudio.volume = Sfx.value;
+        AudioManager.GetInstance().rightAudio.volume = Sfx.value;
+        AudioManager.GetInstance().MenuBgmPlayer.volume = Bgm.value;
     }
     // 종료버튼
     void Exit()
@@ -155,11 +195,18 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-        MenuObj.gameObject.SetActive(true);
-        SelectObj.gameObject.SetActive(false);
-        OptionObj.gameObject.SetActive(false);
-        RankingPanel.gameObject.SetActive(false);
+        AudioManager.GetInstance().SfxPlayer.loop = false;
+        AudioManager.GetInstance().SfxPlayer.volume = 1f;
+        StartCoroutine(FadeStart(MainMenuImg));
     }
+    IEnumerator FadeStart(Image img) // 페이드 들어가는 코루틴
+    {
+        img.DOFade(0, 1);
+        yield return new WaitForSeconds(1);
+        img.gameObject.SetActive(false);
+    }
+
+
     // ///////////메인 메뉴 패널과 음악 선택창 연결 /////////
     void SelectMusic()
     {
@@ -167,11 +214,10 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, -55.8f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-        MenuObj.gameObject.SetActive(false);
-        SelectObj.gameObject.SetActive(true);
-        OptionObj.gameObject.SetActive(false);
-        RankingPanel.gameObject.SetActive(false);
-
+        AudioManager.GetInstance().GetBGMTime();
+        ChangeMusic(SheetManager.GetInstance().GetCurrentTitle());
+        FadeIn(MainMenuImg);
+        StartCoroutine(FadeOut(SelectImg));
     }
     void SelecttoMain()
     {
@@ -179,10 +225,10 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, 357.45f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-        MenuObj.gameObject.SetActive(true);
-        SelectObj.gameObject.SetActive(false);
-        OptionObj.gameObject.SetActive(false);
-        RankingPanel.gameObject.SetActive(false);
+        AudioManager.GetInstance().ReturnBGM();
+        StartCoroutine(FadeOut(MainMenuImg));
+        FadeIn(SelectImg);
+        
     }
     /// <summary>
     /// 게임시작 함수
@@ -193,20 +239,18 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(40, 362.259f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-        MenuObj.gameObject.SetActive(false);
-        SelectObj.gameObject.SetActive(false);
-        OptionObj.gameObject.SetActive(false);
-        RankingPanel.gameObject.SetActive(false);
+        AudioManager.GetInstance().GameBgmPlayer.Stop();
+        AudioManager.GetInstance().PlaySfx("GameSceneStart");
 
         Invoke("GameStart", 2);
         StartCoroutine(StartMove());
-
+        FadeIn(SelectImg);
 
     }
     IEnumerator StartMove()
     {
         yield return new WaitForSeconds(1);
-        dest = new Vector3(-0.45f, 0.2f, -18.85f);
+        dest = new Vector3(0f, -0.79f, -10.92f);
         rot = new Vector3(0, 0, 0);
         CameraMove(dest);
         CameraRotate(rot);
@@ -241,7 +285,23 @@ public class MenuUI : MonoBehaviour
         txtBPM.text = "BPM :" + SheetManager.GetInstance().sheets[title].bpm.ToString();
         ImgDisk.sprite = SheetManager.GetInstance().sheets[title].img;
         txtNoteCount.text = "Note :" + SheetManager.GetInstance().sheets[title].notes.Count.ToString();
-        /*txtBestScore.text = sheetList[curMusic].*/
+    }
+    public void ChangeMusic(string title)
+    {
+        if (coroutineBgm != null)
+        {
+            StopCoroutine(coroutineBgm);
+        }
+        coroutineBgm = StartCoroutine(IEChangeMusic(title));
+    }
+
+    IEnumerator IEChangeMusic(string title)
+    {
+        AudioManager.GetInstance().MenuBgmPlayer.Stop();
+        AudioManager.GetInstance().GameBgmPlayer.Stop();
+        //sfx 사운드 재생
+        yield return new WaitForSeconds(1f);
+        AudioManager.GetInstance().PlayGameBgm(title);
     }
 
     void NextSheet()
@@ -251,7 +311,8 @@ public class MenuUI : MonoBehaviour
             SheetManager.GetInstance().curMusic = 0;
         SetSheetList(SheetManager.GetInstance().curMusic);
         RankSystem.GetInstance().ChangeRankTab();
-
+        ChangeMusic(SheetManager.GetInstance().GetCurrentTitle());
+        AudioManager.GetInstance().PlaySfx("CD_In");
     }
 
     void PriorSheet()
@@ -260,6 +321,8 @@ public class MenuUI : MonoBehaviour
             SheetManager.GetInstance().curMusic = SheetManager.GetInstance().sheets.Count - 1;
         SetSheetList(SheetManager.GetInstance().curMusic);
         RankSystem.GetInstance().ChangeRankTab();
+        ChangeMusic(SheetManager.GetInstance().GetCurrentTitle());
+        AudioManager.GetInstance().PlaySfx("CD_Out");
     }
 
     /////////////////////랭크시스템////////////////////////////////////////
@@ -271,26 +334,41 @@ public class MenuUI : MonoBehaviour
         CameraMove(dest);
         CameraRotate(rot);
         RankingPanel.SetActive(true);
-        MenuObj.gameObject.SetActive(false);
-        SelectObj.gameObject.SetActive(false);
-        OptionObj.gameObject.SetActive(false);
+        StartCoroutine(FadeOut(RankImg));
+        FadeIn(SelectImg);
     }
+
     void ExitRank()
     {
         dest = new Vector3(-10.2f, 20.3f, 39.59f);
         rot = new Vector3(0, -55.8f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-        RankingPanel.SetActive(false);
-        MenuObj.gameObject.SetActive(false);
-        SelectObj.gameObject.SetActive(true);
-        OptionObj.gameObject.SetActive(false);
+        FadeIn(RankImg);
+        StartCoroutine(FadeOut(SelectImg));
     }
 
     // 개발용 랭킹 지우기 버튼(옵션 - 나가기)
     void RemoveRank()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    void Ending()
+    {
+        dest = new Vector3(-54.6f, 31.7f, 57.8f);
+        rot = new Vector3(0, -97.65f, 0);
+        CameraMove(dest);
+        CameraRotate(rot);
+        FadeIn(OptionImg);
+    }
+    void EndingExit()
+    {
+        dest = new Vector3(1.8f, 30, 23.7f);
+        rot = new Vector3(0, 86.986f, 0);
+        CameraMove(dest);
+        CameraRotate(rot);
+        StartCoroutine(FadeOut(OptionImg));
     }
 
 }

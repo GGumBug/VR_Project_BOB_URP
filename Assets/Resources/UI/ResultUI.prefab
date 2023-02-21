@@ -2070,7 +2070,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8792967718331713475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2105,7 +2105,6 @@ MonoBehaviour:
   BadCount: {fileID: 8792967716316869484}
   MissCount: {fileID: 8792967717071564752}
   Score: {fileID: 8792967717953983140}
-  Rank: {fileID: 0}
   RankImg: {fileID: 0}
   OKBtn: {fileID: 8792967716872509295}
   resultUI: {fileID: 8792967718331713474}

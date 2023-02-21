@@ -39,6 +39,7 @@ public class TitleUI : MonoBehaviour
             Nametxt.text = $"{inputField.text}님, 환영합니다.";
             
             ScenesManager.GetInstance().ChangeScene(Scenes.MenuScene);
+            StartBtn.onClick.RemoveAllListeners();
         }
         else
         {

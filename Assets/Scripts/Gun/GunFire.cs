@@ -42,8 +42,8 @@ public class GunFire : MonoBehaviour
     [SerializeField] GameObject m_GunLeft;
     [SerializeField] GameObject m_GunRight;
 
-    float pistolshotDleay = 0.5f;
-    float m_GunDleay = 0.15f;
+    float pistolshotDleay = 0.1f;
+    float m_GunDleay = 0.1f;
     float m_GunDamege = 0.2f;
     bool isLeftShot;
     bool isRightShot;
@@ -53,6 +53,9 @@ public class GunFire : MonoBehaviour
     Coroutine rightDelay;
     Coroutine m_leftDleay;
     Coroutine m_rightDelay;
+
+    bool isPressedL;
+    bool isPressedR;
 
     private void Awake()
     {
@@ -110,25 +113,51 @@ public class GunFire : MonoBehaviour
         switch (controller)
         {
             case Controller.Left:
-                if (InputManager.GetInstance()._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftTriggerValue) && leftTriggerValue && !isLeftShot)
+                if (InputManager.GetInstance()._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftTriggerValue) && leftTriggerValue)
                 {
-                    if (isLeftShot)
-                        return;
-                    isLeftShot = true;
-                    ChangeGun();
-                    InputManager.GetInstance()._leftController.SendHapticImpulse(0, 0.8f, 0.2f);
-                    ShotRayLeft();
+                    if (isPressedL == false)
+                    {
+                        isPressedL = true;
+
+                        if (!isLeftShot)
+                        {
+                            if (isLeftShot)
+                                return;
+                            isLeftShot = true;
+                            ChangeGun();
+                            InputManager.GetInstance()._leftController.SendHapticImpulse(0, 0.8f, 0.2f);
+                            ShotRayLeft();
+                        }
+                    }
+                }
+                else
+                {
+                    if (isPressedL)
+                        isPressedL = false;
                 }
                 break;
             case Controller.Right:
-                if (InputManager.GetInstance()._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightTriggerValue) && rightTriggerValue && !isRightShot)
+                if (InputManager.GetInstance()._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightTriggerValue) && rightTriggerValue)
                 {
-                    if (isRightShot)
-                        return;
-                    isRightShot = true;
-                    ChangeGun();
-                    InputManager.GetInstance()._rightController.SendHapticImpulse(0, 0.8f, 0.2f);
-                    ShotRayRight();
+                    if (isPressedR == false)
+                    {
+                        isPressedR = true;
+
+                        if (!isRightShot)
+                        {
+                            if (isRightShot)
+                                return;
+                            isRightShot = true;
+                            ChangeGun();
+                            InputManager.GetInstance()._rightController.SendHapticImpulse(0, 0.8f, 0.2f);
+                            ShotRayRight();
+                        }
+                    }
+                }
+                else
+                {
+                    if (isPressedR)
+                        isPressedR = false;
                 }
                 break;
             default:
@@ -500,6 +529,16 @@ public class GunFire : MonoBehaviour
     {
         yield return new WaitForSeconds(pistolshotDleay);
         isRightShot = false;
+    }
+
+    public AudioSource FindGunAudioSource()
+    {
+        if (gunAudioSource == null)
+        {
+            Debug.Log("사운드소스 비어있음");
+            return null;
+        }
+        return gunAudioSource;
     }
 
 }
