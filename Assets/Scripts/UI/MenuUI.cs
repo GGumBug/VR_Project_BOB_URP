@@ -16,12 +16,17 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button MainExitBtn;
 
     [Header("MusicSelect")]
-
+    [SerializeField] TMP_Text txtSongName;
+    [SerializeField] TMP_Text txtSongArtist;
+    [SerializeField] TMP_Text txtBPM;
+    [SerializeField] Image ImgDisk;
+    [SerializeField] TMP_Text txtNoteCount;
+    [SerializeField] Button RankingBtn;
     // 곡 리스트 관련 버튼
     [SerializeField] Button ListUpBtn;
     [SerializeField] Button ListDownBtn;
 
-    // 게임시작버튼
+    [Header("GameStart")]
     [SerializeField] Button StartBtn;
     [SerializeField] Button BackBtn;
 
@@ -35,15 +40,6 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Slider Bgm;
     [SerializeField] Slider Sfx;
     [SerializeField] Slider Gbm;
-    [SerializeField] GameObject Cube2;
-
-    // 음악선택관련 버튼
-    [SerializeField] TMP_Text txtSongName;
-    [SerializeField] TMP_Text txtSongArtist;
-    [SerializeField] TMP_Text txtBPM;
-    [SerializeField] Image ImgDisk;
-    [SerializeField] TMP_Text txtNoteCount;
-    [SerializeField] Button RankingBtn;
 
     [Header("Ranking")]
     [SerializeField] GameObject RankingPanel;
@@ -58,6 +54,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] GameObject SelectObj;
     [SerializeField] GameObject OptionObj;
     [SerializeField] GameObject EndingObj;
+    [SerializeField] GameObject ArrowObj;
 
     [SerializeField] Button EndingExitBtn;
 
@@ -77,7 +74,9 @@ public class MenuUI : MonoBehaviour
         OnclickSetting();
         RankingPanel.SetActive(false);
         Debug.Log($"Player : {GameManager.GetInstance().player.playerName}");
-        
+        AudioManager.GetInstance().PlaySfx("NeonArrow");
+        AudioManager.GetInstance().SfxPlayer.loop = true;
+        AudioManager.GetInstance().SfxPlayer.volume = 0.3f;
     }
     void Update()
     {
@@ -118,7 +117,6 @@ public class MenuUI : MonoBehaviour
         MenuObj.gameObject.SetActive(false);
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(true);
-
     }
     void MainBack()
     {
@@ -186,6 +184,9 @@ public class MenuUI : MonoBehaviour
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
         RankingPanel.gameObject.SetActive(false);
+        AudioManager.GetInstance().SfxPlayer.loop = false;
+        AudioManager.GetInstance().SfxPlayer.volume = 1f;
+        ArrowObj.SetActive(false);
     }
     // ///////////메인 메뉴 패널과 음악 선택창 연결 /////////
     void SelectMusic()
