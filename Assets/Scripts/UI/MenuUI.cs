@@ -28,7 +28,7 @@ public class MenuUI : MonoBehaviour
     [Header("Option")]
     [SerializeField] GameObject SoundPanel;
     [SerializeField] GameObject OptionPanel;
-    [SerializeField] Button OptionExitBtn;
+    [SerializeField] Button EndingBtn;
     [SerializeField] Button SoundBtn;
     [SerializeField] Button SoundBackBtn;
     [SerializeField] Button MainBackBtn;
@@ -45,10 +45,6 @@ public class MenuUI : MonoBehaviour
     [SerializeField] TMP_Text txtNoteCount;
     [SerializeField] Button RankingBtn;
 
-    [SerializeField] GameObject MenuObj;
-    [SerializeField] GameObject SelectObj;
-    [SerializeField] GameObject OptionObj;
-
     [Header("Ranking")]
     [SerializeField] GameObject RankingPanel;
     [SerializeField] Button RankBackBtn;
@@ -56,6 +52,14 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button RankDownBtn;
     [SerializeField] TMP_Text txtRankSongName;
 
+
+    [Header("GameObject")]
+    [SerializeField] GameObject MenuObj;
+    [SerializeField] GameObject SelectObj;
+    [SerializeField] GameObject OptionObj;
+    [SerializeField] GameObject EndingObj;
+
+    [SerializeField] Button EndingExitBtn;
 
     public List<Sheet> sheetList = new List<Sheet>();
     Coroutine coroutineBgm;
@@ -97,6 +101,8 @@ public class MenuUI : MonoBehaviour
         RankBackBtn.onClick.AddListener(ExitRank);
         RankUpBtn.onClick.AddListener(NextSheet);
         RankDownBtn.onClick.AddListener(PriorSheet);
+        EndingBtn.onClick.AddListener(Ending);
+        EndingExitBtn.onClick.AddListener(EndingExit);
     }
     // 옵션과 메인메뉴 연결 버튼////
     void OptionOn()
@@ -220,7 +226,7 @@ public class MenuUI : MonoBehaviour
     IEnumerator StartMove()
     {
         yield return new WaitForSeconds(1);
-        dest = new Vector3(-0.45f, 0.2f, -18.85f);
+        dest = new Vector3(0f, -0.79f, -10.92f);
         rot = new Vector3(0, 0, 0);
         CameraMove(dest);
         CameraRotate(rot);
@@ -324,6 +330,21 @@ public class MenuUI : MonoBehaviour
     void RemoveRank()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    void Ending()
+    {
+        dest = new Vector3(-43.4f, 28.3f, 48.1f);
+        rot = new Vector3(0, -90f, 0);
+        CameraMove(dest);
+        CameraRotate(rot);
+    }
+    void EndingExit()
+    {
+        dest = new Vector3(1.8f, 30, 23.7f);
+        rot = new Vector3(0, 86.986f, 0);
+        CameraMove(dest);
+        CameraRotate(rot);
     }
 
 }
