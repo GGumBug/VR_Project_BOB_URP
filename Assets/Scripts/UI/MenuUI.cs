@@ -54,7 +54,6 @@ public class MenuUI : MonoBehaviour
     [SerializeField] GameObject SelectObj;
     [SerializeField] GameObject OptionObj;
     [SerializeField] GameObject EndingObj;
-    [SerializeField] GameObject ArrowObj;
 
     [SerializeField] Button EndingExitBtn;
 
@@ -69,6 +68,7 @@ public class MenuUI : MonoBehaviour
     Vector3 dest;
     Vector3 rot;
     bool isSoundPanel;
+
 
     // Start is called before the first frame update
     void Start()
@@ -114,7 +114,7 @@ public class MenuUI : MonoBehaviour
     // 페이드효과 관련 함수
     IEnumerator FadeOut(Image img) // 페이드 들어가는 코루틴
     {
-        img.DOFade(0, 2);
+        img.DOFade(0, 2.3f);
         yield return new WaitForSeconds(2);
         img.gameObject.SetActive(false);
     }
@@ -123,7 +123,6 @@ public class MenuUI : MonoBehaviour
         img.gameObject.SetActive(true);
         img.DOFade(1, 0.5f);
     }
-
     // 옵션과 메인메뉴 연결 버튼////
     void OptionOn()
     {
@@ -198,7 +197,6 @@ public class MenuUI : MonoBehaviour
         CameraRotate(rot);
         AudioManager.GetInstance().SfxPlayer.loop = false;
         AudioManager.GetInstance().SfxPlayer.volume = 1f;
-        ArrowObj.SetActive(false);
         StartCoroutine(FadeStart(MainMenuImg));
     }
     IEnumerator FadeStart(Image img) // 페이드 들어가는 코루틴
