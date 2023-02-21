@@ -172,15 +172,19 @@ public class GameManager : MonoBehaviour
                     AudioManager.GetInstance().PlaySfx("MissionFailed");
                     break;
                 case 1:
-                    AudioManager.GetInstance().PlaySfx("MissionComplete");
+                    AudioManager.GetInstance().PlaySfx("MissionCompleteReady");
                     break;
             }
             UIManager.GetInstance().OpenUI("E_JudgementUI");
             E_JudgmentUI e_JudgementUI = UIManager.GetInstance().GetUI("E_JudgementUI").GetComponent<E_JudgmentUI>();
             e_JudgementUI.ChangeSprite(name);
             GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
-            yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f);
+            yield return new WaitForSeconds((SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f) * 2f);
             e_JudgementUI.gameObject.SetActive(false);
+            if (type == 1)
+            {
+                AudioManager.GetInstance().PlaySfx("MissionComplete");
+            }
             UIManager.GetInstance().OpenUI("ResultUI");
         }
         else
@@ -194,15 +198,19 @@ public class GameManager : MonoBehaviour
                     AudioManager.GetInstance().PlaySfx("MissionFailed");
                     break;
                 case 1:
-                    AudioManager.GetInstance().PlaySfx("MissionComplete");
+                    AudioManager.GetInstance().PlaySfx("MissionCompleteReady");
                     break;
             }
             UIManager.GetInstance().OpenUI("E_JudgementUI");
             E_JudgmentUI e_JudgementUI = UIManager.GetInstance().GetUI("E_JudgementUI").GetComponent<E_JudgmentUI>();
             e_JudgementUI.ChangeSprite(name);
             GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
-            yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f);
+            yield return new WaitForSeconds((SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f)*2);
             e_JudgementUI.gameObject.SetActive(false);
+            if (type == 1)
+            {
+                AudioManager.GetInstance().PlaySfx("MissionComplete");
+            }
             UIManager.GetInstance().OpenUI("ResultUI");
         }
     }
