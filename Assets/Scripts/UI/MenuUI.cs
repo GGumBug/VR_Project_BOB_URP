@@ -65,6 +65,7 @@ public class MenuUI : MonoBehaviour
     Coroutine coroutineBgm;
     Vector3 dest;
     Vector3 rot;
+    bool isSoundPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +81,10 @@ public class MenuUI : MonoBehaviour
     }
     void Update()
     {
-        SetVolume();
+        if (isSoundPanel)
+        {
+            SetVolume();
+        }
     }
     // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
     void OnclickSetting()
@@ -134,23 +138,31 @@ public class MenuUI : MonoBehaviour
     {
         SoundPanel.gameObject.SetActive(true);
         OptionPanel.gameObject.SetActive(false);
+        Gbm.value = AudioManager.GetInstance().curGameVolum;
+        Bgm.value = AudioManager.GetInstance().curBGMVolum;
+        Sfx.value = AudioManager.GetInstance().curSFXVolum;
+        isSoundPanel = true;
     }
 
     void SoundBack()
     {
         SoundPanel.gameObject.SetActive(false);
         OptionPanel.gameObject.SetActive(true);
+        AudioManager.GetInstance().curGameVolum = Gbm.value;
+        AudioManager.GetInstance().curBGMVolum = Bgm.value;
+        AudioManager.GetInstance().curSFXVolum = Sfx.value;
+        isSoundPanel = false;
     }
 
     // 사운드패널 볼륨 조절 함수
     void SetVolume()
-    {   
-        AudioManager.GetInstance().BgmPlayer.volume = Bgm.value;
+    {
+        AudioManager.GetInstance().GameBgmPlayer.volume = Gbm.value;
         AudioManager.GetInstance().SfxPlayer.volume = Sfx.value;
         AudioManager.GetInstance().FindGunAudio();
         AudioManager.GetInstance().leftAudio.volume = Sfx.value;
         AudioManager.GetInstance().rightAudio.volume = Sfx.value;
-        AudioManager.GetInstance().MenuBgmPlayer.volume = Gbm.value;
+        AudioManager.GetInstance().MenuBgmPlayer.volume = Bgm.value;
     }
     // 종료버튼
     void Exit()
@@ -216,7 +228,7 @@ public class MenuUI : MonoBehaviour
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
         RankingPanel.gameObject.SetActive(false);
-        AudioManager.GetInstance().BgmPlayer.Stop();
+        AudioManager.GetInstance().GameBgmPlayer.Stop();
         AudioManager.GetInstance().PlaySfx("GameSceneStart");
 
         Invoke("GameStart", 2);
@@ -277,7 +289,7 @@ public class MenuUI : MonoBehaviour
     IEnumerator IEChangeMusic(string title)
     {
         AudioManager.GetInstance().MenuBgmPlayer.Stop();
-        AudioManager.GetInstance().BgmPlayer.Stop();
+        AudioManager.GetInstance().GameBgmPlayer.Stop();
         //sfx 사운드 재생
         yield return new WaitForSeconds(1f);
         AudioManager.GetInstance().PlayGameBgm(title);

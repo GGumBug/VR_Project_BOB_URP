@@ -50,7 +50,7 @@ public class AudioManager : MonoBehaviour
 
     public State state = State.Stop;
 
-    public AudioSource BgmPlayer;
+    public AudioSource GameBgmPlayer;
     public AudioSource SfxPlayer;
     public AudioSource MenuBgmPlayer;
     public AudioSource leftAudio;
@@ -58,6 +58,9 @@ public class AudioManager : MonoBehaviour
     public Dictionary<string, Sound> bgms = new Dictionary<string, Sound>();
     public Dictionary<string, Sound> sfxs = new Dictionary<string, Sound>();
     public float curBgmTime;
+    public float curGameVolum = 1f;
+    public float curBGMVolum = 0.3f;
+    public float curSFXVolum = 1f;
 
     private void Awake()
     {
@@ -73,7 +76,7 @@ public class AudioManager : MonoBehaviour
         ob1.AddComponent<AudioSource>();
         ob2.AddComponent<AudioSource>();
         ob3.AddComponent<AudioSource>();
-        BgmPlayer = ob1.GetComponent<AudioSource>();
+        GameBgmPlayer = ob1.GetComponent<AudioSource>();
         SfxPlayer = ob2.GetComponent<AudioSource>();
         MenuBgmPlayer = ob3.GetComponent<AudioSource>();
         MenuBgmPlayer.volume = 0.3f;
@@ -103,9 +106,9 @@ public class AudioManager : MonoBehaviour
        }*/
     public void PlayGameBgm(string title)
     {
-        BgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
+        GameBgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
         state = State.Playing;
-        BgmPlayer.Play();
+        GameBgmPlayer.Play();
     }
     public void PlayBgm(string name)
     {
@@ -127,20 +130,20 @@ public class AudioManager : MonoBehaviour
         get
         {
             float time = 0f;
-            if (BgmPlayer.clip != null)
-                time = BgmPlayer.time;
+            if (GameBgmPlayer.clip != null)
+                time = GameBgmPlayer.time;
             return time;
         }
         set
         {
-            if (BgmPlayer.clip != null)
-                BgmPlayer.time = value;
+            if (GameBgmPlayer.clip != null)
+                GameBgmPlayer.time = value;
         }
     }
 
     public float GetMilliSec()
     {
-        return BgmPlayer.time * 1000;
+        return GameBgmPlayer.time * 1000;
     }
 
     public void FadeOutBGM()
@@ -150,15 +153,15 @@ public class AudioManager : MonoBehaviour
 
     IEnumerator IEFadeOutBGM()
     {
-        while (BgmPlayer.volume > 0)
+        while (GameBgmPlayer.volume > 0)
         {
-            BgmPlayer.volume -= 0.003f;
+            GameBgmPlayer.volume -= 0.003f;
             yield return null;
         }
 
-        if (BgmPlayer.volume == 0)
+        if (GameBgmPlayer.volume == 0)
         {
-            BgmPlayer.Stop();
+            GameBgmPlayer.Stop();
         }
 
     }
@@ -176,7 +179,7 @@ public class AudioManager : MonoBehaviour
 
     public void ReturnBGM()
     {
-        BgmPlayer.Stop();
+        GameBgmPlayer.Stop();
         PlayBgm("Hole In The Sun");
         MenuBgmPlayer.time = curBgmTime;
     }
