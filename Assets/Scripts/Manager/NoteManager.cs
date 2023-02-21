@@ -67,7 +67,7 @@ public class NoteManager : MonoBehaviour
         {
             Debug.Log("노트 없음");
             AudioManager.GetInstance().FadeOutBGM();
-            GameManager.GetInstance().GameOver(next);
+            GameManager.GetInstance().GameOver(next, "Judge_Perfect");
             StopCoroutine(startCoroutine);
             return;
         }
@@ -200,5 +200,15 @@ public class NoteManager : MonoBehaviour
         notes.Clear();
         guides.Clear();
         noteCoroutines.Clear();
+    }
+
+    public void StopStartCoroutine()
+    {
+        StopCoroutine(startCoroutine);
+    }
+
+    public int curNoteNumber()
+    {
+        return next;
     }
 }

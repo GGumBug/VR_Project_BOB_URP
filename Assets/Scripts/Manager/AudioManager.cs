@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
         var ob2 = new GameObject();
         ob2.name = "@SfxPlayer";
         var ob3 = new GameObject();
-        ob2.name = "@MenuPlayer";
+        ob3.name = "@MenuPlayer";
         ob1.transform.SetParent(gameObject.transform);
         ob2.transform.SetParent(gameObject.transform);
         ob3.transform.SetParent(gameObject.transform);
@@ -75,7 +75,7 @@ public class AudioManager : MonoBehaviour
         ob3.AddComponent<AudioSource>();
         BgmPlayer = ob1.GetComponent<AudioSource>();
         SfxPlayer = ob2.GetComponent<AudioSource>();
-        MenuBgmPlayer = ob2.GetComponent<AudioSource>();
+        MenuBgmPlayer = ob3.GetComponent<AudioSource>();
         MenuBgmPlayer.volume = 0.3f;
         InitClip();
     }
@@ -104,7 +104,6 @@ public class AudioManager : MonoBehaviour
     {
         BgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
         state = State.Playing;
-        BgmPlayer.volume = 1;
         BgmPlayer.Play();
     }
     public void PlayBgm(string name)
@@ -112,14 +111,12 @@ public class AudioManager : MonoBehaviour
         var bgm = bgms[name];
         MenuBgmPlayer.clip = bgm.clip;
         state = State.Playing;
-        MenuBgmPlayer.volume = 1;
         MenuBgmPlayer.Play();
     }
     public void PlaySfx(string name)
     {
         var sfx = sfxs[name];
         SfxPlayer.clip = sfx.clip;
-        SfxPlayer.volume = 1;
         SfxPlayer.loop = sfx.loop;
         SfxPlayer.Play();
     }
