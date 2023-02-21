@@ -67,7 +67,7 @@ public class NoteManager : MonoBehaviour
         {
             Debug.Log("노트 없음");
             AudioManager.GetInstance().FadeOutBGM();
-            GameManager.GetInstance().GameOver(next, "Judge_Perfect");
+            GameManager.GetInstance().GameOver(1, next, "Judge_Complete");
             StopCoroutine(startCoroutine);
             return;
         }
