@@ -179,8 +179,8 @@ public class GameManager : MonoBehaviour
             E_JudgmentUI e_JudgementUI = UIManager.GetInstance().GetUI("E_JudgementUI").GetComponent<E_JudgmentUI>();
             e_JudgementUI.FadeImage();
             e_JudgementUI.ChangeSprite(name);
-            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
             yield return new WaitForSeconds((SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f) * 2f);
+            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
             e_JudgementUI.gameObject.SetActive(false);
             if (type == 1)
             {
@@ -206,8 +206,8 @@ public class GameManager : MonoBehaviour
             E_JudgmentUI e_JudgementUI = UIManager.GetInstance().GetUI("E_JudgementUI").GetComponent<E_JudgmentUI>();
             e_JudgementUI.FadeImage();
             e_JudgementUI.ChangeSprite(name);
-            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
             yield return new WaitForSeconds((SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f)*2);
+            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
             e_JudgementUI.gameObject.SetActive(false);
             if (type == 1)
             {
