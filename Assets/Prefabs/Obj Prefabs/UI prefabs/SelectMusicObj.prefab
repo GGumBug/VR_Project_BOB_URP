@@ -1680,6 +1680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8681435242391238873}
   - component: {fileID: 8681435242391238852}
+  - component: {fileID: 691834681853543176}
   m_Layer: 5
   m_Name: SelectMusicObj
   m_TagString: Untagged
@@ -1714,8 +1715,20 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &691834681853543176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8681435242391238853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420a96bac3d07a5479132d3f05ff046c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8681435242420230581
 GameObject:
   m_ObjectHideFlags: 0
