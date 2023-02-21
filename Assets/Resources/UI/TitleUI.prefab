@@ -2787,7 +2787,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4890772962554283057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3577,8 +3577,6 @@ GameObject:
   - component: {fileID: 5119576505875044388}
   - component: {fileID: 4093397411633136999}
   - component: {fileID: 5037543908858619176}
-  - component: {fileID: 3188793040724796038}
-  - component: {fileID: 8282022623815835909}
   m_Layer: 5
   m_Name: InputFieldImg
   m_TagString: Untagged
@@ -3648,46 +3646,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!50 &3188793040724796038
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3939596465186299302}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!257 &8282022623815835909
-TargetJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3939596465186299302}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_Anchor: {x: 0, y: 0}
-  m_Target: {x: 397, y: 447.2192}
-  m_AutoConfigureTarget: 1
-  m_MaxForce: 10000
-  m_DampingRatio: 1
-  m_Frequency: 5
 --- !u!1 &3957215188813883908
 GameObject:
   m_ObjectHideFlags: 0
@@ -4327,8 +4285,6 @@ GameObject:
   - component: {fileID: 4023777147948535768}
   - component: {fileID: 4023777147948535773}
   - component: {fileID: 8086402059046973343}
-  - component: {fileID: 7517568750227291372}
-  - component: {fileID: 6665893775578481422}
   - component: {fileID: 3211803939467404939}
   m_Layer: 5
   m_Name: OnScreenKeyboard - KIOSK
@@ -4386,46 +4342,6 @@ MonoBehaviour:
   EnNormalCpas: {fileID: 5638914015616583303}
   exitBtn: {fileID: 5638914016108771508}
   capsBtn: {fileID: 4023777147439006758}
---- !u!50 &7517568750227291372
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4023777147948535769}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!257 &6665893775578481422
-TargetJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4023777147948535769}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_Anchor: {x: 0, y: 0}
-  m_Target: {x: 397, y: 442.2392}
-  m_AutoConfigureTarget: 1
-  m_MaxForce: 10000
-  m_DampingRatio: 1
-  m_Frequency: 5
 --- !u!114 &3211803939467404939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5080,8 +4996,6 @@ GameObject:
   - component: {fileID: 8905576870344295537}
   - component: {fileID: 2057954351130379132}
   - component: {fileID: 3344520774041841419}
-  - component: {fileID: 7761057172257665134}
-  - component: {fileID: 5625929941288367591}
   - component: {fileID: 7102323562083104915}
   m_Layer: 5
   m_Name: Text (TMP)
@@ -5224,46 +5138,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!50 &7761057172257665134
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4897656929810882873}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!257 &5625929941288367591
-TargetJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4897656929810882873}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_Anchor: {x: 0, y: 0}
-  m_Target: {x: 397, y: 449.78918}
-  m_AutoConfigureTarget: 1
-  m_MaxForce: 10000
-  m_DampingRatio: 1
-  m_Frequency: 5
 --- !u!114 &7102323562083104915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15340,7 +15214,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7241034737452948576}
   - component: {fileID: 4215789182242178950}
-  - component: {fileID: 6723328880094364749}
   - component: {fileID: 9188809869430462370}
   - component: {fileID: 3643674519190855842}
   m_Layer: 5
@@ -15360,7 +15233,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000035762784}
   m_LocalPosition: {x: -5, y: 291, z: -25}
   m_LocalScale: {x: 194.03526, y: 194.03526, z: 194.03526}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8075624639617821691}
   - {fileID: 5320615445043346781}
@@ -15383,23 +15256,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.52, y: 2.6, z: 1}
   m_Center: {x: 0, y: 0, z: -0.15}
---- !u!111 &6723328880094364749
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8013735619003270874}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 9092592c19abdff4b8ef678e1f777162, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 9092592c19abdff4b8ef678e1f777162, type: 2}
-  - {fileID: 7400000, guid: 15ba22a17bbd626489e347e51defd5f9, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!95 &9188809869430462370
 Animator:
   serializedVersion: 5
