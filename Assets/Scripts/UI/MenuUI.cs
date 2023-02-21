@@ -217,6 +217,7 @@ public class MenuUI : MonoBehaviour
         OptionObj.gameObject.SetActive(false);
         RankingPanel.gameObject.SetActive(false);
         AudioManager.GetInstance().BgmPlayer.Stop();
+        AudioManager.GetInstance().PlaySfx("GameSceneStart");
 
         Invoke("GameStart", 2);
         StartCoroutine(StartMove());
@@ -290,6 +291,7 @@ public class MenuUI : MonoBehaviour
         SetSheetList(SheetManager.GetInstance().curMusic);
         RankSystem.GetInstance().ChangeRankTab();
         ChangeMusic(SheetManager.GetInstance().GetCurrentTitle());
+        AudioManager.GetInstance().PlaySfx("CD_In");
     }
 
     void PriorSheet()
@@ -299,6 +301,7 @@ public class MenuUI : MonoBehaviour
         SetSheetList(SheetManager.GetInstance().curMusic);
         RankSystem.GetInstance().ChangeRankTab();
         ChangeMusic(SheetManager.GetInstance().GetCurrentTitle());
+        AudioManager.GetInstance().PlaySfx("CD_Out");
     }
 
     /////////////////////랭크시스템////////////////////////////////////////

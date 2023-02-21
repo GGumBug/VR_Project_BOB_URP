@@ -144,14 +144,14 @@ public class GameManager : MonoBehaviour
         if (player.hp == 0)
         {
             AudioManager.GetInstance().FadeOutBGM();
-            GameManager.GetInstance().GameOver(NoteManager.GetInstance().curNoteNumber(), "Judge_Miss");
+            GameManager.GetInstance().GameOver(0, NoteManager.GetInstance().curNoteNumber(), "Judge_Failed");
             NoteManager.GetInstance().StopStartCoroutine();
         }
     }
 
-    public void GameOver(int next, string name )
+    public void GameOver(int type, int next, string name )
     {
-        StartCoroutine(IEGameOver(next, name));
+        StartCoroutine(IEGameOver(type, next, name));
     }
 
     JudgmentUI GetJudgmentUI()
@@ -161,11 +161,20 @@ public class GameManager : MonoBehaviour
         return judgmentUI;
     }
 
-    IEnumerator IEGameOver(int next, string name)
+    IEnumerator IEGameOver(int type ,int next, string name)
     {
         if (SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].type == 0)
         {
             yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f);
+            switch (type)
+            {
+                case 0:
+                    AudioManager.GetInstance().PlaySfx("MissionFailed");
+                    break;
+                case 1:
+                    AudioManager.GetInstance().PlaySfx("MissionComplete");
+                    break;
+            }
             UIManager.GetInstance().OpenUI("E_JudgementUI");
             E_JudgmentUI e_JudgementUI = UIManager.GetInstance().GetUI("E_JudgementUI").GetComponent<E_JudgmentUI>();
             e_JudgementUI.ChangeSprite(name);
@@ -179,6 +188,15 @@ public class GameManager : MonoBehaviour
             float duration = SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].tail - SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].time;
             Debug.Log(duration + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset);
             yield return new WaitForSeconds((duration + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset)*0.001f);
+            switch (type)
+            {
+                case 0:
+                    AudioManager.GetInstance().PlaySfx("MissionFailed");
+                    break;
+                case 1:
+                    AudioManager.GetInstance().PlaySfx("MissionComplete");
+                    break;
+            }
             UIManager.GetInstance().OpenUI("E_JudgementUI");
             E_JudgmentUI e_JudgementUI = UIManager.GetInstance().GetUI("E_JudgementUI").GetComponent<E_JudgmentUI>();
             e_JudgementUI.ChangeSprite(name);

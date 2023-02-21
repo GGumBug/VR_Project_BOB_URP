@@ -77,6 +77,7 @@ public class AudioManager : MonoBehaviour
         SfxPlayer = ob2.GetComponent<AudioSource>();
         MenuBgmPlayer = ob3.GetComponent<AudioSource>();
         MenuBgmPlayer.volume = 0.3f;
+        MenuBgmPlayer.loop = true;
         InitClip();
     }
     public void InitClip()
