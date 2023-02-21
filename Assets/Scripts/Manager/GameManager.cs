@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     public Player player = new Player("", 0, 100, 100, 0, 0, 0, 0, 0, 0);
 
+    Coroutine gameOvercoroutine;
+
     public void CheckJugement(NoteObject note, float curtime)
     {
         if (1000 < GetPerfectTiming(note) - curtime)
@@ -151,7 +153,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(int type, int next, string name )
     {
-        StartCoroutine(IEGameOver(type, next, name));
+        if (gameOvercoroutine != null)
+        {
+            StopCoroutine(gameOvercoroutine);
+        }
+        gameOvercoroutine = StartCoroutine(IEGameOver(type, next, name));
     }
 
     JudgmentUI GetJudgmentUI()
