@@ -1275,7 +1275,7 @@ MonoBehaviour:
   gunraycastOrigin: {fileID: 1600018419417722393}
   targetLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 96
   gunFirePS: {fileID: 3291381716392892006}
   mGunFirePS: {fileID: 8922562256681454789}
   gunSwapPS: {fileID: 2216145782852413169}
@@ -1471,7 +1471,7 @@ MonoBehaviour:
   gunraycastOrigin: {fileID: 1600018419304180280}
   targetLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 96
   gunFirePS: {fileID: 1282523836003391879}
   mGunFirePS: {fileID: 5232888435511402652}
   gunSwapPS: {fileID: 6970372714414875679}
