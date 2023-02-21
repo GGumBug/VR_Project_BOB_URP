@@ -26,7 +26,7 @@ public class SheetManager : MonoBehaviour
 
     public int curMusic = 0;
 
-    public string[] title = {"Bones", "Welcome To Hell", "Lalalalalalalalalala", "Lucky Strike", "Underground Sound", "No War" };
+    public string[] title = {"Bones", "Welcome To Hell", "Lalalalalalalalalala", "Lucky Strike", "Underground Sound", "No War", "Ditto" };
 
     float speed = 1.0f;
     public float Speed
