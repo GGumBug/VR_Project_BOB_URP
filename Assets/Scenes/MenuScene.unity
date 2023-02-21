@@ -12340,9 +12340,9 @@ MonoBehaviour:
   SoundBtn: {fileID: 1047839491}
   SoundBackBtn: {fileID: 866409802}
   MainBackBtn: {fileID: 650074720}
-  Bgm: {fileID: 1698018653}
+  Bgm: {fileID: 794778121}
   Sfx: {fileID: 1077708052}
-  Gbm: {fileID: 794778121}
+  Gbm: {fileID: 1698018653}
   Cube2: {fileID: 856089038}
   txtSongName: {fileID: 509976535}
   txtSongArtist: {fileID: 1565360112}
