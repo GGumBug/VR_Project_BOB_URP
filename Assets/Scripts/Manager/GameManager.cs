@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     public Player player = new Player("", 0, 100, 100, 0, 0, 0, 0, 0, 0);
 
+    Coroutine gameOvercoroutine;
+
     public void CheckJugement(NoteObject note, float curtime)
     {
         if (1000 < GetPerfectTiming(note) - curtime)
@@ -151,7 +153,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(int type, int next, string name )
     {
-        StartCoroutine(IEGameOver(type, next, name));
+        if (gameOvercoroutine != null)
+        {
+            StopCoroutine(gameOvercoroutine);
+        }
+        gameOvercoroutine = StartCoroutine(IEGameOver(type, next, name));
     }
 
     JudgmentUI GetJudgmentUI()
@@ -179,8 +185,8 @@ public class GameManager : MonoBehaviour
             E_JudgmentUI e_JudgementUI = UIManager.GetInstance().GetUI("E_JudgementUI").GetComponent<E_JudgmentUI>();
             e_JudgementUI.FadeImage();
             e_JudgementUI.ChangeSprite(name);
-            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
             yield return new WaitForSeconds((SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f) * 2f);
+            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
             e_JudgementUI.gameObject.SetActive(false);
             if (type == 1)
             {
@@ -206,8 +212,8 @@ public class GameManager : MonoBehaviour
             E_JudgmentUI e_JudgementUI = UIManager.GetInstance().GetUI("E_JudgementUI").GetComponent<E_JudgmentUI>();
             e_JudgementUI.FadeImage();
             e_JudgementUI.ChangeSprite(name);
-            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
             yield return new WaitForSeconds((SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f)*2);
+            GetJudgmentUI().judgeImg.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0f);
             e_JudgementUI.gameObject.SetActive(false);
             if (type == 1)
             {
