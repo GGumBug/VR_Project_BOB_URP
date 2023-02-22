@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-[System.Serializable]
 public struct RankData
 {
     public string PlayerName;
@@ -110,7 +109,7 @@ public class RankSystem : MonoBehaviour
         currentData.score = PlayerPrefs.GetInt("CurrentScore");
         currentData.maxCombo = PlayerPrefs.GetInt("CurrentMaxCombo");
 
-        //1 ~ 10 등의 점수와 현재 스테이지에서 달성한 점수 비교
+        //1 ~ 5 등의 점수와 현재 스테이지에서 달성한 점수 비교
         for (int i = 0; i < maxRankCount; ++i)
         {
             if (currentData.score > rankDataArray[i].score)
@@ -130,7 +129,7 @@ public class RankSystem : MonoBehaviour
         currentData.score = PlayerPrefs.GetInt("CurrentScore");
         currentData.maxCombo = PlayerPrefs.GetInt("CurrentMaxCombo");
 
-        //1 ~ 10 등의 점수와 현재 스테이지에서 달성한 점수 비교
+        //1 ~ 5 등의 점수와 현재 스테이지에서 달성한 점수 비교
         for (int i = 0; i < maxRankCount; ++i)
         {
             if (currentData.score > rankDataArray[i].score)
@@ -165,7 +164,7 @@ public class RankSystem : MonoBehaviour
         for (int i = 0; i < maxRankCount; ++i)
         {
             //방금 플레이의 점수가 랭크에 등록되면 색상을 노란색으로 표시
-            /*color = currentIndex != i ? Color.white : Color.white;*/
+            /*color = currentIndex != i ? Color.white : Color.yellow;*/
 
             //Text - TextMeshPro 생성 및 원하는 데이터 출력
             SpawnText((i + 1).ToString(), color);
@@ -192,11 +191,6 @@ public class RankSystem : MonoBehaviour
             PlayerPrefs.SetString("RankPlayerName" + i + curMusic, rankDataArray[i].PlayerName);
             PlayerPrefs.SetInt("RankScore" + i + curMusic, rankDataArray[i].score);
             PlayerPrefs.SetInt("RankMaxCombo" + i + curMusic, rankDataArray[i].maxCombo);
-
-            //PlayerPrefs.SetString("RankPlayerName" + i, rankDataArray[i].PlayerName);
-            //PlayerPrefs.SetInt("RankScore" + i, rankDataArray[i].score);
-            //PlayerPrefs.SetInt("RankMaxCombo" + i, rankDataArray[i].maxCombo);
-
         }
         Debug.Log("Save");
     }
