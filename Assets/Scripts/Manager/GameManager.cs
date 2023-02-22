@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("PERFACT");
+            Debug.Log("PERFECT");
             GetJudgmentUI().InitJudgeIMG("Judge_Perfect");
             player.PlusHP(10);
             player.PlusScore(100);
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("PERFACT");
+            Debug.Log("PERFECT");
             GetJudgmentUI().InitJudgeIMG("Judge_Perfect");
             player.PlusHP(10);
             player.PlusScore(100);
@@ -107,9 +107,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CheckLongPerfactJugement()
+    public void CheckLongPerfectJugement()
     {
-        Debug.Log("PERFACT");
+        Debug.Log("PERFECT");
         GetJudgmentUI().InitJudgeIMG("Judge_Perfect");
         player.PlusHP(10);
         player.PlusScore(100);
@@ -196,7 +196,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            float duration = SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].tail - SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].time;
+            float duration = SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].tail - 
+                SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].time;
             Debug.Log(duration + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset);
             yield return new WaitForSeconds((duration + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset)*0.001f);
             switch (type)

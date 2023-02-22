@@ -2,13 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Count
-{
-    perfect,
-    good,
-    bad,
-    miss,
-}
 public class Player
 {
     public string playerName { get; private set; }
@@ -23,7 +16,8 @@ public class Player
     public int missCount { get; private set; }
 
     TitleUI titleUI;
-    public Player(string playerName, int score, int maxHp, int hp, int currentCombo, int maxcombo, int perfectCount, int goodCount, int badCount, int missCount)
+    public Player(string playerName, int score, int maxHp, int hp, int currentCombo, 
+        int maxcombo, int perfectCount, int goodCount, int badCount, int missCount)
     {
         this.playerName = playerName;
         this.score = score;

@@ -8,7 +8,6 @@ public struct RankData
     public string PlayerName;
     public int score;
     public int maxCombo;
-    public int rank;
 }
 
 public class RankSystem : MonoBehaviour
