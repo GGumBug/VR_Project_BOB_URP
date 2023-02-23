@@ -372,7 +372,7 @@ public class GunFire : MonoBehaviour
                 if (note.longNoteCount <= 0)
                 {
                     ObjectPoolManager.GetInstance().ReturnLongNote(note);
-                    GameManager.GetInstance().CheckLongPerfactJugement();
+                    GameManager.GetInstance().CheckLongPerfectJugement();
                     NoteManager.GetInstance().StopNoteCoroutine(note);
                 }
             }
@@ -445,7 +445,7 @@ public class GunFire : MonoBehaviour
                 {
                     ObjectPoolManager.GetInstance().ReturnLongNote(note);
                     note.SetLongNoteCount(note.maxLongNoteCount);
-                    GameManager.GetInstance().CheckLongPerfactJugement();
+                    GameManager.GetInstance().CheckLongPerfectJugement();
                     NoteManager.GetInstance().StopNoteCoroutine(note);
                 }
             }
