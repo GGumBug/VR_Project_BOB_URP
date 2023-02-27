@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuUI : MonoBehaviour
 {
+    // 첫번째 카메라 앵글, 메인메뉴 관련
     [Header("Main")]
     [SerializeField] Button SelectMusicBtn;
     [SerializeField] GameObject xrOrigin;
@@ -15,6 +16,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button OptionBtn;
     [SerializeField] Button MainExitBtn;
 
+    // 음악 고르는 창 관련
     [Header("MusicSelect")]
     [SerializeField] TMP_Text txtSongName;
     [SerializeField] TMP_Text txtSongArtist;
@@ -22,14 +24,14 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Image ImgDisk;
     [SerializeField] TMP_Text txtNoteCount;
     [SerializeField] Button RankingBtn;
-    // 곡 리스트 관련 버튼
+    [SerializeField] Button StartBtn;
+    [SerializeField] Button ToMainBtn;
+
+    // 곡 리스트 변경관련 버튼
     [SerializeField] Button ListUpBtn;
     [SerializeField] Button ListDownBtn;
 
-    [Header("GameStart")]
-    [SerializeField] Button StartBtn;
-    [SerializeField] Button BackBtn;
-
+    //옵션 창 관련
     [Header("Option")]
     [SerializeField] GameObject SoundPanel;
     [SerializeField] GameObject OptionPanel;
@@ -41,28 +43,25 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Slider Sfx;
     [SerializeField] Slider Gbm;
 
+    // 랭킹 창 관련
     [Header("Ranking")]
     [SerializeField] GameObject RankingPanel;
     [SerializeField] Button RankBackBtn;
     [SerializeField] Button RankUpBtn;
     [SerializeField] Button RankDownBtn;
     [SerializeField] TMP_Text txtRankSongName;
-
-
-    [Header("GameObject")]
-    [SerializeField] GameObject MenuObj;
-    [SerializeField] GameObject SelectObj;
-    [SerializeField] GameObject OptionObj;
-    [SerializeField] GameObject EndingObj;
-
+    
+    // 엔딩크래딧
     [SerializeField] Button EndingExitBtn;
 
+    // 페이드용 간판이미지
     [Header("FadeImg")]
     [SerializeField] Image MainMenuImg;
     [SerializeField] Image OptionImg;
     [SerializeField] Image SelectImg;
     [SerializeField] Image RankImg;
 
+    // 기타
     public List<Sheet> sheetList = new List<Sheet>();
     Coroutine coroutineBgm;
     Vector3 dest;
@@ -74,9 +73,7 @@ public class MenuUI : MonoBehaviour
     void Start()
     {
         SetSheetList(SheetManager.GetInstance().curMusic);
-        xrOrigin = GameObject.FindGameObjectWithTag("XROrigin");
-        xrOrigin.transform.position = new Vector3(-22.7f, 8.1f, 49.7f);
-        xrOrigin.transform.localEulerAngles = new Vector3(0, 46.535f, 0);
+        SetOrigin();
         OnclickSetting();
         Debug.Log($"Player : {GameManager.GetInstance().player.playerName}");
         AudioManager.GetInstance().PlaySfx("NeonArrow");
@@ -85,17 +82,23 @@ public class MenuUI : MonoBehaviour
     }
     void Update()
     {
-        if (isSoundPanel)
+        if (isSoundPanel) // 사운드 조절 패널에 있을 때만 볼륨 조절할 수 있도록
         {
             SetVolume();
         }
     }
-    // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
-    void OnclickSetting()
+    void SetOrigin() // XROrigin의 첫 위치 세팅
+    {
+        xrOrigin = GameObject.FindGameObjectWithTag("XROrigin");
+        xrOrigin.transform.position = new Vector3(-22.7f, 8.1f, 49.7f);
+        xrOrigin.transform.localEulerAngles = new Vector3(0, 46.535f, 0);
+    }
+
+    void OnclickSetting() // 온클릭 세팅
     {
         MainMenuZoomBtn.onClick.AddListener(MainMenuOn);
         SelectMusicBtn.onClick.AddListener(SelectMusic);
-        BackBtn.onClick.AddListener(SelecttoMain);
+        ToMainBtn.onClick.AddListener(SelecttoMain);
         StartBtn.onClick.AddListener(GameStartOn);
         OptionBtn.onClick.AddListener(OptionOn);
         MainExitBtn.onClick.AddListener(Exit);
@@ -142,12 +145,8 @@ public class MenuUI : MonoBehaviour
         CameraRotate(rot);
         FadeIn(OptionImg);
         StartCoroutine(FadeOut(MainMenuImg));
-    }
-
-    /// <summary>
-    /// 옵션 사운드 패널 온오프버튼///
-    /// </summary>
-    void SoundOn()
+    }    
+    void SoundOn() // 옵션 사운드 패널 온오프버튼//
     {
         SoundPanel.gameObject.SetActive(true);
         OptionPanel.gameObject.SetActive(false);
@@ -156,7 +155,6 @@ public class MenuUI : MonoBehaviour
         Sfx.value = AudioManager.GetInstance().curSFXVolum;
         isSoundPanel = true;
     }
-
     void SoundBack()
     {
         SoundPanel.gameObject.SetActive(false);
@@ -295,7 +293,7 @@ public class MenuUI : MonoBehaviour
         coroutineBgm = StartCoroutine(IEChangeMusic(title));
     }
 
-    IEnumerator IEChangeMusic(string title)
+    IEnumerator IEChangeMusic(string title) // 음악변경 코루틴
     {
         AudioManager.GetInstance().MenuBgmPlayer.Stop();
         AudioManager.GetInstance().GameBgmPlayer.Stop();
@@ -304,9 +302,8 @@ public class MenuUI : MonoBehaviour
         AudioManager.GetInstance().PlayGameBgm(title);
     }
 
-    void NextSheet()
-    {
-
+    void NextSheet() //시트리스트 업
+    { 
         if (++SheetManager.GetInstance().curMusic > SheetManager.GetInstance().sheets.Count - 1)
             SheetManager.GetInstance().curMusic = 0;
         SetSheetList(SheetManager.GetInstance().curMusic);
@@ -315,7 +312,7 @@ public class MenuUI : MonoBehaviour
         AudioManager.GetInstance().PlaySfx("CD_In");
     }
 
-    void PriorSheet()
+    void PriorSheet() //시트리스트 다운
     {
         if (--SheetManager.GetInstance().curMusic < 0)
             SheetManager.GetInstance().curMusic = SheetManager.GetInstance().sheets.Count - 1;
@@ -327,7 +324,7 @@ public class MenuUI : MonoBehaviour
 
     /////////////////////랭크시스템////////////////////////////////////////
     
-    void RankOn()
+    void RankOn() // 랭크창 켜기
     {
         dest = new Vector3(-13.6f, 29.2f, 40.3f);
         rot = new Vector3(0, 87, 0);
@@ -338,7 +335,7 @@ public class MenuUI : MonoBehaviour
         FadeIn(SelectImg);
     }
 
-    void ExitRank()
+    void ExitRank() //랭크 나가기
     {
         dest = new Vector3(-10.2f, 20.3f, 39.59f);
         rot = new Vector3(0, -55.8f, 0);
@@ -347,14 +344,7 @@ public class MenuUI : MonoBehaviour
         FadeIn(RankImg);
         StartCoroutine(FadeOut(SelectImg));
     }
-
-    // 개발용 랭킹 지우기 버튼(옵션 - 나가기)
-    void RemoveRank()
-    {
-        PlayerPrefs.DeleteAll();
-    }
-
-    void Ending()
+    void Ending() // 엔딩크래딧 들어가기
     {
         dest = new Vector3(-54.6f, 31.7f, 57.8f);
         rot = new Vector3(0, -97.65f, 0);
@@ -362,7 +352,7 @@ public class MenuUI : MonoBehaviour
         CameraRotate(rot);
         FadeIn(OptionImg);
     }
-    void EndingExit()
+    void EndingExit() // 엔딩크래딧 나가기
     {
         dest = new Vector3(1.8f, 30, 23.7f);
         rot = new Vector3(0, 86.986f, 0);
@@ -370,5 +360,4 @@ public class MenuUI : MonoBehaviour
         CameraRotate(rot);
         StartCoroutine(FadeOut(OptionImg));
     }
-
 }
