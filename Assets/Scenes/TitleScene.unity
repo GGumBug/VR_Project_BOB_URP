@@ -972,6 +972,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin_NS
       objectReference: {fileID: 0}
+    - target: {fileID: 3482208506628239281, guid: fd59ae16d9ba7d74583a3d52c8d086b0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3482208506628239283, guid: fd59ae16d9ba7d74583a3d52c8d086b0,
         type: 3}
       propertyPath: m_RootOrder
